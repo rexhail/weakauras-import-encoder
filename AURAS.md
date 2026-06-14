@@ -31,6 +31,34 @@ Loads only while you're Retribution.
 The GCD bar and Hammer of Wrath use small custom triggers; everything else uses
 native WeakAuras triggers.
 
+## ret-priority-queue.import.txt  (Retribution)
+
+A rotation **priority helper** — instead of static reminders, it shows a live row
+of icons where the **leftmost icon is what to press right now**, and the rest sit
+behind it dimmed, in priority order. As cooldowns, your seal, and the target's
+health change, the icons reorder themselves on the fly.
+
+The priority it follows (single target, built for leveling Ret):
+
+1. **Seal of Command** — jumps to the front whenever no seal is up (no seal, no
+   damage), so you always refresh it first.
+2. **Hammer of Wrath** — slots in ahead of everything else once the target drops
+   to 20% health or below (the execute window).
+3. **Crusader Strike** — the 6s metronome the rotation is built on.
+4. **Judgement** — woven in off the global cooldown.
+
+When everything is on cooldown the row is empty, which simply means "keep
+auto-attacking." Two details make it feel right in the hand: it ignores the
+1.5s global cooldown when deciding what's ready (so the next button shows up
+*during* the GCD, ready to queue, instead of leaving a dead gap), and the engine
+re-evaluates every frame so an ability appears the exact instant it lights up on
+your action bar — no lag.
+
+It's a single icon driven by one custom trigger (a TSU that emits one state per
+ready ability with a sort priority), arranged by a dynamic group sorted on that
+priority. Inspired by the way Hekili-style and WotLK Death Knight rotation
+WeakAuras present a reordering "what to press next" queue.
+
 ## prot-reminder-v1.import.txt  (Protection)
 
 A tank version. Loads only while you're Protection.
