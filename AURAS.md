@@ -32,3 +32,19 @@ native WeakAuras triggers.
 
 A single icon that shows your current seal and its remaining time, greyed out
 when no seal is up. A simpler alternative if you only want seal tracking.
+
+## prot-reminder-v1.import.txt
+
+A Protection tank version. Loads only while you're Protection (it checks that
+Holy Shield is known), so it won't show up on other specs.
+
+- **Seal (any)** — shows whichever seal is active and its remaining time; turns
+  red and flashes when no seal is up. Works with any seal you use.
+- **Holy Shield** — stays bright while the buff is up and shows the remaining
+  charges as a number; goes grey when it drops. The gold "recast" glow only
+  fires once the spell is actually off cooldown (not just when the charges run
+  out), so it never tells you to recast while it's still on cooldown.
+- **Avenger's Shield** — cooldown with a gold glow when it's ready.
+
+The Retribution aura is gated the same way (it checks for Crusader Strike), so
+the two versions stay out of each other's way when you swap specs.
