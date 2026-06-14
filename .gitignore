@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Third-party Lua lib is downloaded at runtime (MIT, by Ross Nichols) — not redistributed here
+LibSerialize.lua
+
+# Build intermediates
+*.ser
+
+# Never commit game/account data
+WTF/
+*BugGrabber*.lua
