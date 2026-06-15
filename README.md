@@ -60,9 +60,13 @@ python demo_roundtrip.py ret-reminder-v3.1.import.txt
 Drop-in import strings for a TBC Anniversary Retribution Paladin. See
 [AURAS.md](AURAS.md) for what each one does and how to import.
 
-- `ret-priority-queue.import.txt` — a live rotation priority helper: a reordering
-  row of icons where the leftmost is what to press next (Seal → Hammer of Wrath
-  execute → Crusader Strike → Judgement), updated every frame.
+- `rexhail-rotation-ret.import.txt` — the main rotation helper: a live row of
+  icons where the leftmost is what to press next (Seal → Hammer of Wrath execute
+  → Crusader Strike → Judgement → Exorcism on Undead/Demon), plus a GCD bar and
+  swing timer. The visible icons auto-center as they come and go. Published on
+  wago: https://wago.io/f-ofmKAvL
+- `ret-priority-queue.import.txt` — the earlier prototype of that rotation: a
+  single icon driven by one dynamic group. Kept for reference.
 - `ret-reminder-v3.1.import.txt` — Crusader Strike / Seal of Command / Judgement
   reminders, swing timer, GCD bar, and a Hammer of Wrath finisher.
 - `seal-tracker.import.txt` — a standalone seal tracker.

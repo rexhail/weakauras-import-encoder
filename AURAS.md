@@ -31,9 +31,30 @@ Loads only while you're Retribution.
 The GCD bar and Hammer of Wrath use small custom triggers; everything else uses
 native WeakAuras triggers.
 
-## ret-priority-queue.import.txt  (Retribution)
+## rexhail-rotation-ret.import.txt  (Retribution)  — current
 
-A rotation **priority helper** — instead of static reminders, it shows a live row
+A rotation **priority helper**. Instead of static reminders it shows a live row
+of icons where the **leftmost icon is what to press right now**, with a GCD bar
+and a swing timer underneath. As cooldowns, your seal, and the target's health
+change, the row updates and re-centers itself on the fly.
+
+Priority (single target):
+
+1. **Seal of Command** — jumps to the front whenever no seal is up.
+2. **Hammer of Wrath** — slots in once the target is at 20% health or below.
+3. **Crusader Strike** — the 6s metronome the rotation is built on.
+4. **Judgement** — woven in off the global cooldown.
+5. **Exorcism** — a low-priority filler, only shown against Undead and Demon
+   targets.
+
+Up to five icons show at once, and the row stays centered over the bars no matter
+how many are visible. Built as one flat group (no nested groups), so it imports
+cleanly and moves as one piece. Published on wago: https://wago.io/f-ofmKAvL
+
+## ret-priority-queue.import.txt  (Retribution)  — earlier prototype
+
+The first take on the rotation above, kept for reference. A **priority helper** —
+instead of static reminders, it shows a live row
 of icons where the **leftmost icon is what to press right now**, and the rest sit
 behind it dimmed, in priority order. As cooldowns, your seal, and the target's
 health change, the icons reorder themselves on the fly.
