@@ -13,3 +13,6 @@ LibSerialize.lua
 # Never commit game/account data
 WTF/
 *BugGrabber*.lua
+
+# Private project documentation (admin only)
+CLAUDE.md
