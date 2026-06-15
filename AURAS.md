@@ -49,7 +49,16 @@ Priority (single target):
 
 Up to five icons show at once, and the row stays centered over the bars no matter
 how many are visible. Built as one flat group (no nested groups), so it imports
-cleanly and moves as one piece. Published on wago: https://wago.io/f-ofmKAvL
+cleanly and moves as one piece.
+
+**Seal & mana awareness:** it recognises any active seal (not just Seal of
+Command), so it never nags while you have one up. When your mana drops below 12%
+it suggests **Seal of Wisdom** as a soft hint, and once you climb back above 40%
+it points you back to your offensive seal — remembering whichever one you use, so
+it adapts as you pick up Seal of Blood/Martyr later. The suggestion never blocks
+the rotation; staying on your damage seal is always treated as a valid choice.
+
+Published on wago: https://wago.io/f-ofmKAvL
 
 ## ret-priority-queue.import.txt  (Retribution)  — earlier prototype
 
