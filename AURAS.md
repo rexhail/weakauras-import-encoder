@@ -12,7 +12,7 @@ Everything imports as a single group you can drag around as one piece. The Ret
 and Prot groups each only load in their own spec (Ret checks for Crusader Strike,
 Prot checks for Holy Shield), so they stay out of each other's way when you swap.
 
-## rexhail-rotation-ret.import.txt  (Retribution)  — current
+## rexhail-rotation-ret.import.txt  (Retribution)  — current (v1.3.4)
 
 A rotation **priority helper**. Instead of static reminders it shows a live row
 of icons where the **leftmost icon is what to press right now**, with a GCD bar

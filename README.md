@@ -60,7 +60,7 @@ python demo_roundtrip.py ret-reminder-v3.1.import.txt
 Drop-in import strings for a TBC Anniversary Retribution Paladin. See
 [AURAS.md](AURAS.md) for what each one does and how to import.
 
-- `rexhail-rotation-ret.import.txt` — the main rotation helper: a live row of
+- `rexhail-rotation-ret.import.txt` (v1.3.4) — the main rotation helper: a live row of
   icons where the leftmost is what to press next (Blessing → Sanctity Aura → Seal
   → Hammer of Wrath execute → Crusader Strike → Judgement → Exorcism on
   Undead/Demon), plus a GCD bar and swing timer. The visible icons auto-center as
