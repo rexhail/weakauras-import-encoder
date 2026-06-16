@@ -16,3 +16,6 @@ WTF/
 
 # Private project documentation (admin only)
 CLAUDE.md
+
+# WA iterations folder (testing versions)
+_iterations/

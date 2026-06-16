@@ -61,17 +61,17 @@ Drop-in import strings for a TBC Anniversary Retribution Paladin. See
 [AURAS.md](AURAS.md) for what each one does and how to import.
 
 - `rexhail-rotation-ret.import.txt` — the main rotation helper: a live row of
-  icons where the leftmost is what to press next (Seal → Hammer of Wrath execute
-  → Crusader Strike → Judgement → Exorcism on Undead/Demon), plus a GCD bar and
-  swing timer. The visible icons auto-center as they come and go. It detects any
-  active seal, and when you run low on mana it suggests Seal of Wisdom, then
-  switching back to your offensive seal once you recover. Published on wago:
-  https://wago.io/f-ofmKAvL
-- `ret-priority-queue.import.txt` — the earlier prototype of that rotation: a
-  single icon driven by one dynamic group. Kept for reference.
-- `ret-reminder-v3.1.import.txt` — Crusader Strike / Seal of Command / Judgement
-  reminders, swing timer, GCD bar, and a Hammer of Wrath finisher.
+  icons where the leftmost is what to press next (Blessing → Sanctity Aura → Seal
+  → Hammer of Wrath execute → Crusader Strike → Judgement → Exorcism on
+  Undead/Demon), plus a GCD bar and swing timer. The visible icons auto-center as
+  they come and go. Mana-aware: it recognises any active seal/blessing/aura, and
+  when you run low on mana it suggests Seal of Wisdom / Blessing of Wisdom, then
+  points you back to your offensive seal / Blessing of Might once you recover —
+  and it stops nagging once Judgement of Wisdom is on the target. Published on
+  wago: https://wago.io/f-ofmKAvL
 - `seal-tracker.import.txt` — a standalone seal tracker.
+- `prot-reminder-v1.import.txt` — a Protection version (any-seal tracker, Holy
+  Shield with charges, Avenger's Shield).
 
 ## Credits
 

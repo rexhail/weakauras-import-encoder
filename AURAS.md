@@ -12,25 +12,6 @@ Everything imports as a single group you can drag around as one piece. The Ret
 and Prot groups each only load in their own spec (Ret checks for Crusader Strike,
 Prot checks for Holy Shield), so they stay out of each other's way when you swap.
 
-## ret-reminder-v3.2.import.txt  (Retribution)
-
-A focused reminder set, centered slightly below the middle of the screen.
-Loads only while you're Retribution.
-
-- **Seal of Command** — always visible with remaining buff time; turns red and
-  flashes when it drops, so you don't forget to refresh it.
-- **Crusader Strike** — always visible with its cooldown counting down; flares
-  gold the moment it's ready (it's the 6s metronome the rotation is built on).
-- **Judgement** — same treatment; cast it on cooldown to keep Judgement of the
-  Crusader up.
-- **Swing timer** — a bar with a green tick marking the 0.4s seal-twist window.
-- **GCD bar** — a thin bar showing the global cooldown so you stop clipping it.
-- **Hammer of Wrath** — hidden until the target is at 20% health or below, then
-  it pops up as a glowing finisher.
-
-The GCD bar and Hammer of Wrath use small custom triggers; everything else uses
-native WeakAuras triggers.
-
 ## rexhail-rotation-ret.import.txt  (Retribution)  — current
 
 A rotation **priority helper**. Instead of static reminders it shows a live row
@@ -40,54 +21,34 @@ change, the row updates and re-centers itself on the fly.
 
 Priority (single target):
 
-1. **Seal of Command** — jumps to the front whenever no seal is up.
-2. **Hammer of Wrath** — slots in once the target is at 20% health or below.
-3. **Crusader Strike** — the 6s metronome the rotation is built on.
-4. **Judgement** — woven in off the global cooldown.
-5. **Exorcism** — a low-priority filler, only shown against Undead and Demon
+1. **Blessing** — jumps to the front whenever no blessing is up.
+2. **Sanctity Aura** — shown whenever no Paladin aura is active.
+3. **Seal** — front whenever no seal is up.
+4. **Hammer of Wrath** — slots in once the target is at 20% health or below.
+5. **Crusader Strike** — the 6s metronome the rotation is built on.
+6. **Judgement** — woven in off the global cooldown.
+7. **Exorcism** — a low-priority filler, only shown against Undead and Demon
    targets.
 
-Up to five icons show at once, and the row stays centered over the bars no matter
-how many are visible. Built as one flat group (no nested groups), so it imports
-cleanly and moves as one piece.
+The row stays centered over the bars no matter how many icons are visible. Built
+as one flat group (no nested groups), so it imports cleanly and moves as one piece.
 
-**Seal & mana awareness:** it recognises any active seal (not just Seal of
-Command), so it never nags while you have one up. When your mana drops below 12%
-it suggests **Seal of Wisdom** as a soft hint, and once you climb back above 40%
-it points you back to your offensive seal — remembering whichever one you use, so
-it adapts as you pick up Seal of Blood/Martyr later. The suggestion never blocks
-the rotation; staying on your damage seal is always treated as a valid choice.
+**Mana-aware seal & blessing managers:** it recognises any active seal and
+blessing (incl. Greater blessings), so it never nags while one is up. When your
+mana drops below 12% it suggests **Seal of Wisdom** as a soft hint, and once you
+climb back above 40% it points you back to your offensive seal — remembering
+whichever one you use, so it adapts to Seal of Blood/Martyr. The same applies to
+**Blessing of Wisdom**, but only while you have no Blessing of Might up, so it
+never nags you to swap mid-fight. If **Judgement of Wisdom** is already on the
+target (yours or a group member's), the Seal of Wisdom hint stops and it points
+you back to your offensive seal, since the mana is already covered. These hints
+sit at the end of the queue and never block the rotation.
+
+**Aura awareness:** Sanctity Aura is only suggested when no Paladin aura
+(Devotion, Retribution, Concentration, the Resistance auras, Crusader, Sanctity)
+is active.
 
 Published on wago: https://wago.io/f-ofmKAvL
-
-## ret-priority-queue.import.txt  (Retribution)  — earlier prototype
-
-The first take on the rotation above, kept for reference. A **priority helper** —
-instead of static reminders, it shows a live row
-of icons where the **leftmost icon is what to press right now**, and the rest sit
-behind it dimmed, in priority order. As cooldowns, your seal, and the target's
-health change, the icons reorder themselves on the fly.
-
-The priority it follows (single target, built for leveling Ret):
-
-1. **Seal of Command** — jumps to the front whenever no seal is up (no seal, no
-   damage), so you always refresh it first.
-2. **Hammer of Wrath** — slots in ahead of everything else once the target drops
-   to 20% health or below (the execute window).
-3. **Crusader Strike** — the 6s metronome the rotation is built on.
-4. **Judgement** — woven in off the global cooldown.
-
-When everything is on cooldown the row is empty, which simply means "keep
-auto-attacking." Two details make it feel right in the hand: it ignores the
-1.5s global cooldown when deciding what's ready (so the next button shows up
-*during* the GCD, ready to queue, instead of leaving a dead gap), and the engine
-re-evaluates every frame so an ability appears the exact instant it lights up on
-your action bar — no lag.
-
-It's a single icon driven by one custom trigger (a TSU that emits one state per
-ready ability with a sort priority), arranged by a dynamic group sorted on that
-priority. Inspired by the way Hekili-style and WotLK Death Knight rotation
-WeakAuras present a reordering "what to press next" queue.
 
 ## prot-reminder-v1.import.txt  (Protection)
 
