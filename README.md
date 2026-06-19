@@ -60,15 +60,16 @@ python demo_roundtrip.py ret-reminder-v3.1.import.txt
 Drop-in import strings for a TBC Anniversary Retribution Paladin. See
 [AURAS.md](AURAS.md) for what each one does and how to import.
 
-- `rexhail-rotation-ret.import.txt` (v1.5.1) — the main rotation helper: a live row of
-  icons where the leftmost is what to press next (Blessing → Sanctity Aura → Seal
-  → Hammer of Wrath execute → Crusader Strike → Judgement → Exorcism on
-  Undead/Demon), plus a GCD bar and swing timer. The visible icons auto-center as
-  they come and go. Mana-aware: it recognises any active seal/blessing/aura, and
-  when you run low on mana it suggests Seal of Wisdom / Blessing of Wisdom, then
-  points you back to your offensive seal / Blessing of Might once you recover —
-  and it stops nagging once Judgement of Wisdom is on the target. Published on
-  wago: https://wago.io/f-ofmKAvL
+- `rexhail-rotation-ret.import.txt` (v2.0.0) — the main rotation helper, now
+  **dual-spec**: it loads a Retribution priority queue while you're Ret and a
+  Protection one while you're Prot (gated on Crusader Strike / Holy Shield), with a
+  shared GCD bar and swing timer. A live row of icons where the leftmost is what to
+  press next; the visible icons auto-center as they come and go. Cooldown abilities
+  fade in ~2.5s early with a depleting sweep that fills to full colour as they come
+  up, and the press-now icon shows the global cooldown ticking so you can time the
+  next press. Mana-aware: it recognises any active seal/blessing/aura, hides
+  abilities you can't currently afford, and suggests Seal of Wisdom when low.
+  Published on wago: https://wago.io/f-ofmKAvL
 - `seal-tracker.import.txt` — a standalone seal tracker.
 - `prot-reminder-v1.import.txt` — a Protection version (any-seal tracker, Holy
   Shield with charges, Avenger's Shield).

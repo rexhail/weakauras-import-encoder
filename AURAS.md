@@ -12,14 +12,19 @@ Everything imports as a single group you can drag around as one piece. The Ret
 and Prot groups each only load in their own spec (Ret checks for Crusader Strike,
 Prot checks for Holy Shield), so they stay out of each other's way when you swap.
 
-## rexhail-rotation-ret.import.txt  (Retribution)  — current (v1.5.1)
+## rexhail-rotation-ret.import.txt  (Ret + Prot dual-spec)  — current (v2.0.0)
 
 A rotation **priority helper**. Instead of static reminders it shows a live row
 of icons where the **leftmost icon is what to press right now**, with a GCD bar
 and a swing timer underneath. As cooldowns, your seal, and the target's health
 change, the row updates and re-centers itself on the fly.
 
-Priority (single target):
+Since v2.0.0 it is **dual-spec**: the same group carries both a Retribution and a
+Protection priority queue, and only the one for your current build loads (gated on
+Crusader Strike for Ret, Holy Shield for Prot). Respec and it switches itself; the
+GCD bar and swing timer are shared by both.
+
+Retribution priority (single target):
 
 1. **Blessing** — jumps to the front whenever no blessing is up.
 2. **Sanctity Aura** — shown whenever no Paladin aura is active.
@@ -29,6 +34,19 @@ Priority (single target):
 6. **Judgement** — woven in off the global cooldown.
 7. **Exorcism** — a low-priority filler, only shown against Undead and Demon
    targets.
+
+Protection priority (threat):
+
+1. **Righteous Fury** — front whenever the threat buff is missing.
+2. **Blessing of Sanctuary** — front whenever no blessing is up.
+3. **Devotion Aura** — shown whenever no Paladin aura is active.
+4. **Seal of Righteousness** — front whenever no seal is up.
+5. **Holy Shield** — the top active; recast on cooldown to keep block + threat up.
+6. **Avenger's Shield** — off cooldown (pull / ranged threat).
+7. **Consecration** — core threat, shown whenever it's off cooldown (always, not
+   gated on enemy count like the Ret AoE hint).
+8. **Judgement**, then **Hammer of Wrath** (execute) and **Exorcism**
+   (Undead/Demon) as the lowest-priority fillers.
 
 The row stays centered over the bars no matter how many icons are visible. Built
 as one flat group (no nested groups), so it imports cleanly and moves as one piece.
@@ -48,11 +66,16 @@ sit at the end of the queue and never block the rotation.
 (Devotion, Retribution, Concentration, the Resistance auras, Crusader, Sanctity)
 is active.
 
-**Pre-ready preview (v1.4.0):** cooldown abilities appear in the row ~1.5s before
-they come off cooldown, carrying a native radial cooldown swipe that fills back to
-full colour exactly as they become usable — so you can line up the next press on
-the beat. The instant an ability becomes usable it gives a small sparkle. Ready
-abilities and reminders show in full colour with no swipe.
+**Pre-ready preview:** cooldown abilities appear in the row ~2.5s before they come
+off cooldown (v2.0.0; was 1.5s), carrying a native radial cooldown swipe that fills
+back to full colour exactly as they become usable — so you can line up the next
+press on the beat. The instant an ability becomes usable it gives a small sparkle.
+Ready abilities and reminders show in full colour with no swipe.
+
+**GCD on the press-now icon (v2.0.0):** the leftmost "press now" icon shows the
+global cooldown ticking down as a depleting sweep and brightens the instant the
+GCD ends, so you can feel exactly when the next press lands. Only the top icon
+carries it; the rest of the row stays clean.
 
 **Usability & AoE (v1.5.0):** anything you can't currently afford the mana for is
 hidden, and Crusader Strike drops out while you're disarmed (it's a weapon attack,
@@ -65,6 +88,11 @@ single target. Counting enemies needs enemy nameplates enabled.
 spell by name, i.e. the highest rank you actually have on your bar — so Exorcism,
 Hammer of Wrath and your blessing no longer linger in the queue just because their
 cheap rank 1 is affordable.
+
+**Prot seal handling (v2.0.0):** in Protection the rotation never nags you to swap
+seals while any seal is up (including Seal of Wisdom) — it only suggests a seal
+when you have none, plus the low-mana Seal of Wisdom hint. (Retribution keeps
+pointing you back to your offensive seal once your mana recovers.)
 
 Published on wago: https://wago.io/f-ofmKAvL
 
