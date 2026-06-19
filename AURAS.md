@@ -12,7 +12,7 @@ Everything imports as a single group you can drag around as one piece. The Ret
 and Prot groups each only load in their own spec (Ret checks for Crusader Strike,
 Prot checks for Holy Shield), so they stay out of each other's way when you swap.
 
-## rexhail-rotation-ret.import.txt  (Retribution)  — current (v1.5.0)
+## rexhail-rotation-ret.import.txt  (Retribution)  — current (v1.5.1)
 
 A rotation **priority helper**. Instead of static reminders it shows a live row
 of icons where the **leftmost icon is what to press right now**, with a GCD bar
@@ -60,6 +60,11 @@ so it can't be used — Judgement and Exorcism stay). **Consecration** is added 
 AoE suggestion (after Judgement, before Exorcism): it only shows when there are 4+
 enemies in range (roughly Consecration's radius), so it stays out of the way in
 single target. Counting enemies needs enemy nameplates enabled.
+
+**Mana-gate rank fix (v1.5.1):** the "can't afford the mana" check now resolves the
+spell by name, i.e. the highest rank you actually have on your bar — so Exorcism,
+Hammer of Wrath and your blessing no longer linger in the queue just because their
+cheap rank 1 is affordable.
 
 Published on wago: https://wago.io/f-ofmKAvL
 
