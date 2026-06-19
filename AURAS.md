@@ -12,7 +12,7 @@ Everything imports as a single group you can drag around as one piece. The Ret
 and Prot groups each only load in their own spec (Ret checks for Crusader Strike,
 Prot checks for Holy Shield), so they stay out of each other's way when you swap.
 
-## rexhail-rotation-ret.import.txt  (Retribution)  — current (v1.4.0)
+## rexhail-rotation-ret.import.txt  (Retribution)  — current (v1.5.0)
 
 A rotation **priority helper**. Instead of static reminders it shows a live row
 of icons where the **leftmost icon is what to press right now**, with a GCD bar
@@ -53,6 +53,13 @@ they come off cooldown, carrying a native radial cooldown swipe that fills back 
 full colour exactly as they become usable — so you can line up the next press on
 the beat. The instant an ability becomes usable it gives a small sparkle. Ready
 abilities and reminders show in full colour with no swipe.
+
+**Usability & AoE (v1.5.0):** anything you can't currently afford the mana for is
+hidden, and Crusader Strike drops out while you're disarmed (it's a weapon attack,
+so it can't be used — Judgement and Exorcism stay). **Consecration** is added as an
+AoE suggestion (after Judgement, before Exorcism): it only shows when there are 4+
+enemies in range (roughly Consecration's radius), so it stays out of the way in
+single target. Counting enemies needs enemy nameplates enabled.
 
 Published on wago: https://wago.io/f-ofmKAvL
 
