@@ -12,7 +12,7 @@ Everything imports as a single group you can drag around as one piece. The Ret
 and Prot groups each only load in their own spec (Ret checks for Crusader Strike,
 Prot checks for Holy Shield), so they stay out of each other's way when you swap.
 
-## rexhail-rotation-ret.import.txt  (Ret + Prot dual-spec)  — current (v2.0.0)
+## rexhail-rotation-ret.import.txt  (Ret + Prot dual-spec)  — current (v2.3.0)
 
 A rotation **priority helper**. Instead of static reminders it shows a live row
 of icons where the **leftmost icon is what to press right now**, with a GCD bar
@@ -28,10 +28,11 @@ Retribution priority (single target):
 
 1. **Blessing** — jumps to the front whenever no blessing is up.
 2. **Sanctity Aura** — shown whenever no Paladin aura is active.
-3. **Seal** — front whenever no seal is up.
-4. **Hammer of Wrath** — slots in once the target is at 20% health or below.
+3. **Hammer of Wrath** — slots in once the target is at 20% health or below.
+4. **Judgement** — top of the active rotation (v2.3.0: above Crusader Strike).
 5. **Crusader Strike** — the 6s metronome the rotation is built on.
-6. **Judgement** — woven in off the global cooldown.
+6. **Seal** — shown only when no seal is up; sits behind Judgement and Crusader
+   Strike (v2.3.0) so re-sealing never bumps your damage buttons off the front.
 7. **Exorcism** — a low-priority filler, only shown against Undead and Demon
    targets.
 
@@ -40,27 +41,33 @@ Protection priority (threat):
 1. **Righteous Fury** — front whenever the threat buff is missing.
 2. **Blessing of Sanctuary** — front whenever no blessing is up.
 3. **Devotion Aura** — shown whenever no Paladin aura is active.
-4. **Seal of Righteousness** — front whenever no seal is up.
-5. **Holy Shield** — the top active; recast on cooldown to keep block + threat up.
-6. **Avenger's Shield** — off cooldown (pull / ranged threat).
-7. **Consecration** — core threat, shown whenever it's off cooldown (always, not
+4. **Holy Shield** — the top active; recast on cooldown to keep block + threat up.
+5. **Avenger's Shield** — off cooldown (pull / ranged threat).
+6. **Consecration** — core threat, shown whenever it's off cooldown (always, not
    gated on enemy count like the Ret AoE hint).
-8. **Judgement**, then **Hammer of Wrath** (execute) and **Exorcism**
-   (Undead/Demon) as the lowest-priority fillers.
+7. **Judgement**, woven in off the global cooldown.
+8. **Seal of Righteousness** — shown only when no seal is up; sits behind the
+   active threat rotation (v2.3.0) rather than at the front.
+9. **Hammer of Wrath** (execute) and **Exorcism** (Undead/Demon) as the
+   lowest-priority fillers.
 
-The row stays centered over the bars no matter how many icons are visible. Built
-as one flat group (no nested groups), so it imports cleanly and moves as one piece.
+The row stays centered over the bars and **shows at most 3 icons at once**
+(v2.3.0) — what to press now plus the next two — so it never sprawls into a busy
+wall of icons. Built as one flat group (no nested groups), so it imports cleanly
+and moves as one piece.
 
-**Mana-aware seal & blessing managers:** it recognises any active seal and
-blessing (incl. Greater blessings), so it never nags while one is up. When your
-mana drops below 12% it suggests **Seal of Wisdom** as a soft hint, and once you
-climb back above 40% it points you back to your offensive seal — remembering
-whichever one you use, so it adapts to Seal of Blood/Martyr. The same applies to
-**Blessing of Wisdom**, but only while you have no Blessing of Might up, so it
-never nags you to swap mid-fight. If **Judgement of Wisdom** is already on the
-target (yours or a group member's), the Seal of Wisdom hint stops and it points
-you back to your offensive seal, since the mana is already covered. These hints
-sit at the end of the queue and never block the rotation.
+**Seal indicator (v2.1.0):** a small standalone icon next to the row always shows
+your **current seal** in full colour. When no seal is up it goes grey with a red
+glow, falling back to the last offensive seal you used — so you can see your seal
+status at a glance without it ever taking a rotation slot.
+
+**Seal & blessing managers:** it recognises any active seal and blessing (incl.
+Greater blessings), so it never nags while one is up. The **seal** is only ever
+suggested when you have *none* — and it remembers the last **offensive** seal you
+cast (it ignores Seal of Wisdom/Light), so an opener like Seal of Wisdom → Seal of
+Command doesn't confuse it (v2.1.0). The **blessing** is likewise only suggested
+when you have none at all: Blessing of Might normally, or Blessing of Wisdom while
+your mana is low — it never nags you to swap a blessing you already have up.
 
 **Aura awareness:** Sanctity Aura is only suggested when no Paladin aura
 (Devotion, Retribution, Concentration, the Resistance auras, Crusader, Sanctity)
@@ -89,10 +96,8 @@ spell by name, i.e. the highest rank you actually have on your bar — so Exorci
 Hammer of Wrath and your blessing no longer linger in the queue just because their
 cheap rank 1 is affordable.
 
-**Prot seal handling (v2.0.0):** in Protection the rotation never nags you to swap
-seals while any seal is up (including Seal of Wisdom) — it only suggests a seal
-when you have none, plus the low-mana Seal of Wisdom hint. (Retribution keeps
-pointing you back to your offensive seal once your mana recovers.)
+The seal and blessing handling above is shared by both specs, so swapping
+Ret ↔ Prot needs no extra thought — the queue just switches with you.
 
 Published on wago: https://wago.io/f-ofmKAvL
 
