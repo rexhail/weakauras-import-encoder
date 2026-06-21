@@ -60,7 +60,7 @@ python demo_roundtrip.py ret-reminder-v3.1.import.txt
 Drop-in import strings for a TBC Anniversary Retribution Paladin. See
 [AURAS.md](AURAS.md) for what each one does and how to import.
 
-- `rexhail-rotation-ret.import.txt` (v2.6.0) — the main rotation helper, now
+- `rexhail-rotation-ret.import.txt` (v2.6.1) — the main rotation helper, now
   **dual-spec**: it loads a Retribution priority queue while you're Ret and a
   Protection one while you're Prot (gated on Crusader Strike / Holy Shield), with a
   shared GCD bar and swing timer. A live row of icons where the leftmost is what to

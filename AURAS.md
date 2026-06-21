@@ -12,7 +12,7 @@ Everything imports as a single group you can drag around as one piece. The Ret
 and Prot groups each only load in their own spec (Ret checks for Crusader Strike,
 Prot checks for Holy Shield), so they stay out of each other's way when you swap.
 
-## rexhail-rotation-ret.import.txt  (Ret + Prot dual-spec)  — current (v2.6.0)
+## rexhail-rotation-ret.import.txt  (Ret + Prot dual-spec)  — current (v2.6.1)
 
 A rotation **priority helper**. Instead of static reminders it shows a live row
 of icons where the **leftmost icon is what to press right now**, with a GCD bar
@@ -68,7 +68,9 @@ rotation icon (removed v2.5.0); these two cues replace it.
 **Blessing manager:** it recognises any active blessing (incl. Greater blessings),
 so it never nags while one is up. The blessing is only suggested when you have none
 at all: Blessing of Might normally, or Blessing of Wisdom while your mana is low —
-it never nags you to swap a blessing you already have up.
+it never nags you to swap a blessing you already have up. (v2.6.1: the "do I have a
+blessing?" check now matches *any* Blessing of … — Kings, Salvation, etc. — not just
+Might/Wisdom, so it no longer keeps suggesting one while another is up.)
 
 **Aura awareness:** Sanctity Aura is only suggested when no Paladin aura
 (Devotion, Retribution, Concentration, the Resistance auras, Crusader, Sanctity)
