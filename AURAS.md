@@ -12,95 +12,72 @@ Everything imports as a single group you can drag around as one piece. The Ret
 and Prot groups each only load in their own spec (Ret checks for Crusader Strike,
 Prot checks for Holy Shield), so they stay out of each other's way when you swap.
 
-## rexhail-rotation-ret.import.txt  (Ret + Prot dual-spec)  — current (v2.6.1)
+## rexhail-rotation-ret.import.txt  (adaptive Ret + Prot HUD)  — current (v3.2.1)
 
-A rotation **priority helper**. Instead of static reminders it shows a live row
-of icons where the **leftmost icon is what to press right now**, with a GCD bar
-and a swing timer underneath. As cooldowns, your seal, and the target's health
-change, the row updates on the fly, anchored to the left so the press-now icon
-stays in one place.
+An adaptive rotation HUD. One import that auto-adapts to your spec, to what you
+**know** (not your level), and to PvP vs PvE — Ret and Prot, leveling to 70.
 
-Since v2.0.0 it is **dual-spec**: the same group carries both a Retribution and a
-Protection priority queue, and only the one for your current build loads (gated on
-Crusader Strike for Ret, Holy Shield for Prot). Respec and it switches itself; the
-GCD bar and swing timer are shared by both.
+**The press-now icon** is the standout: it's **bigger** than the rest and **flashes
+bright gold the instant the global cooldown ends**, so you feel exactly when to
+press (the "heartbeat"). A GCD bar and swing timer sit underneath.
 
-Retribution priority (single target):
+**Retribution adapts in two tiers** (detected by which spells you know):
 
-1. **Blessing** — jumps to the front whenever no blessing is up.
-2. **Sanctity Aura** — shown whenever no Paladin aura is active.
-3. **Hammer of Wrath** — slots in once the target is at 20% health or below.
-4. **Judgement** — top of the active rotation (v2.3.0: above Crusader Strike). It
-   greys out while you have no seal up, since it needs one to fire (v2.4.0).
-5. **Crusader Strike** — the 6s metronome the rotation is built on.
-6. **Exorcism** — a low-priority filler, only shown against Undead and Demon
-   targets.
+- **Tier A — leveling:** keep your seal up, then Judgement, Crusader Strike (once you
+  have it), Hammer of Wrath under 20%, with Consecration (4+ enemies) and Exorcism
+  (Undead/Demon) as fillers. Blessing and Paladin aura jump to the front when missing.
+- **Tier B — twisting (~70, once you know Seal of Command + Seal of Blood/Martyr):** a
+  swing-synced **twist track** appears above the row — ride the swing and twist your
+  seal in the last 0.4s, building a combo. Judgement greys out unless your twist seal
+  is up. (TBC has no native swing-timer API, so the 0.4s window is latency-compensated
+  — a guide, ~0.1s jitter, same as every twist tool.)
 
-The seal is **not** in the rotation queue (removed v2.5.0) — the standalone seal
-indicator and the greyed-out Judgement are your "you need a seal" cues instead.
+**Protection** loads in a Prot build with its own threat priority: Righteous Fury,
+Blessing of Sanctuary, Devotion Aura, Holy Shield, Avenger's Shield, Consecration
+(always off cd), Judgement, then Hammer of Wrath / Exorcism.
 
-Protection priority (threat):
+**Status icon (right of the row):** shows your weapon — and in **1H+shield it shows
+the shield**, so a glance tells you you're in shield mode. When you should be swinging
+but aren't, it turns into a **red NOT-ATTACKING** warning in the same spot.
 
-1. **Righteous Fury** — front whenever the threat buff is missing.
-2. **Blessing of Sanctuary** — front whenever no blessing is up.
-3. **Devotion Aura** — shown whenever no Paladin aura is active.
-4. **Holy Shield** — the top active; recast on cooldown to keep block + threat up.
-5. **Avenger's Shield** — off cooldown (pull / ranged threat).
-6. **Consecration** — core threat, shown whenever it's off cooldown (always, not
-   gated on enemy count like the Ret AoE hint).
-7. **Judgement**, woven in off the global cooldown (greys out with no seal up).
-8. **Hammer of Wrath** (execute) and **Exorcism** (Undead/Demon) as the
-   lowest-priority fillers.
+**Carried over:** at most 3 icons, left-anchored; a ~2.5s pre-ready sweep with a
+sparkle the instant an ability comes up; a standalone seal indicator (grey + red when
+no seal); mana-awareness (hides what you can't afford, resolved by highest known rank);
+Crusader Strike drops while disarmed. One flat group, moves as one piece.
 
-The row is **anchored to the left** (v2.6.0): the press-now icon stays in one spot
-and the next icons fill rightward, so there's no empty gap when only one or two
-are queued. It **shows at most 3 icons at once** (v2.2.0) — what to press now plus
-the next two. Built as one flat group (no nested groups), so it imports cleanly
-and moves as one piece.
+### Macros (Horde shown; Alliance: Seal of Blood → Seal of the Martyr)
 
-**Seal cues (v2.1.0 + v2.4.0):** a small standalone Seal Indicator next to the row
-always shows your **current seal** in full colour; when no seal is up it goes grey
-with a red glow, remembering the last offensive seal you used. On top of that, the
-**Judgement** icon in the row greys out whenever you have no seal (v2.4.0) — so a
-missing seal reads from two places. The seal itself is **not** suggested as a
-rotation icon (removed v2.5.0); these two cues replace it.
+```
+# base seal — rank 1 (the per-swing proc is the same every rank, saves mana)
+#showtooltip Seal of Command(Rank 1)
+/cast Seal of Command(Rank 1)
 
-**Blessing manager:** it recognises any active blessing (incl. Greater blessings),
-so it never nags while one is up. The blessing is only suggested when you have none
-at all: Blessing of Might normally, or Blessing of Wisdom while your mana is low —
-it never nags you to swap a blessing you already have up. (v2.6.1: the "do I have a
-blessing?" check now matches *any* Blessing of … — Kings, Salvation, etc. — not just
-Might/Wisdom, so it no longer keeps suggesting one while another is up.)
+# twist + start attacking
+#showtooltip Seal of Blood
+/cast Seal of Blood
+/startattack
 
-**Aura awareness:** Sanctity Aura is only suggested when no Paladin aura
-(Devotion, Retribution, Concentration, the Resistance auras, Crusader, Sanctity)
-is active.
+# Crusader Strike (instant, won't clip a seal cast)
+#showtooltip Crusader Strike
+/stopcasting
+/cast Crusader Strike
 
-**Pre-ready preview:** cooldown abilities appear in the row ~2.5s before they come
-off cooldown (v2.0.0; was 1.5s), carrying a native radial cooldown swipe that fills
-back to full colour exactly as they become usable — so you can line up the next
-press on the beat. The instant an ability becomes usable it gives a small sparkle.
-Ready abilities and reminders show in full colour with no swipe.
+# Judgement, then re-seal Command
+#showtooltip Judgement
+/startattack
+/cast Judgement
+/cast Seal of Command(Rank 1)
 
-**GCD on the press-now icon (v2.0.0):** the leftmost "press now" icon shows the
-global cooldown ticking down as a depleting sweep and brightens the instant the
-GCD ends, so you can feel exactly when the next press lands. Only the top icon
-carries it; the rest of the row stays clean.
+# opener — do NOT auto-attack while you set up seals
+/stopattack
+/cast Seal of the Crusader
 
-**Usability & AoE (v1.5.0):** anything you can't currently afford the mana for is
-hidden, and Crusader Strike drops out while you're disarmed (it's a weapon attack,
-so it can't be used — Judgement and Exorcism stay). **Consecration** is added as an
-AoE suggestion (after Judgement, before Exorcism): it only shows when there are 4+
-enemies in range (roughly Consecration's radius), so it stays out of the way in
-single target. Counting enemies needs enemy nameplates enabled.
-
-**Mana-gate rank fix (v1.5.1):** the "can't afford the mana" check now resolves the
-spell by name, i.e. the highest rank you actually have on your bar — so Exorcism,
-Hammer of Wrath and your blessing no longer linger in the queue just because their
-cheap rank 1 is affordable.
-
-The blessing handling and seal cues above are shared by both specs, so swapping
-Ret ↔ Prot needs no extra thought — the queue just switches with you.
+# burst (with trinkets)
+#showtooltip Avenging Wrath
+/cast Avenging Wrath
+/use 13
+/use 14
+```
 
 Published on wago: https://wago.io/f-ofmKAvL
 

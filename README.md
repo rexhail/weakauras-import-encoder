@@ -60,18 +60,16 @@ python demo_roundtrip.py ret-reminder-v3.1.import.txt
 Drop-in import strings for a TBC Anniversary Retribution Paladin. See
 [AURAS.md](AURAS.md) for what each one does and how to import.
 
-- `rexhail-rotation-ret.import.txt` (v2.6.1) — the main rotation helper, now
-  **dual-spec**: it loads a Retribution priority queue while you're Ret and a
-  Protection one while you're Prot (gated on Crusader Strike / Holy Shield), with a
-  shared GCD bar and swing timer. A live row of icons where the leftmost is what to
-  press next; it shows at most 3 at once, anchored to the left so the press-now icon
-  stays put and the row fills rightward. Cooldown abilities fade in ~2.5s early with
-  a depleting sweep that fills to full colour as they come up, and the press-now
-  icon shows the global cooldown ticking so you can time the next press. A standalone
-  seal indicator shows your current seal (grey + red glow when none), and Judgement
-  greys out while you have no seal — the seal isn't a rotation icon. Mana-aware: it
-  recognises any active seal/blessing/aura, hides abilities you can't currently
-  afford, and only reminds you to bless when you have none.
+- `rexhail-rotation-ret.import.txt` (v3.2.1) — the main rotation helper, an
+  **adaptive Ret + Prot HUD**. One import that adapts to your spec, to what you know
+  (not your level), and to PvP vs PvE. The press-now icon is bigger and **flashes
+  gold the instant the GCD ends** (the heartbeat), with a shared GCD bar and swing
+  timer. Retribution runs a simple leveling rotation that unlocks a swing-synced
+  **seal-twist track** at ~70 (Seal of Command + Seal of Blood/Martyr); Protection
+  gets its own threat priority. A status icon on the right shows your weapon (the
+  **shield** when you're in 1H+shield) and flips to a red NOT-ATTACKING warning when
+  you should be swinging but aren't. Mana-aware, left-anchored row of up to 3 icons,
+  pre-ready sweep + sparkle. See [AURAS.md](AURAS.md) for macros.
   Published on wago: https://wago.io/f-ofmKAvL
 - `seal-tracker.import.txt` — a standalone seal tracker.
 - `prot-reminder-v1.import.txt` — a Protection version (any-seal tracker, Holy
