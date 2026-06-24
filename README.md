@@ -60,7 +60,7 @@ python demo_roundtrip.py ret-reminder-v3.1.import.txt
 Drop-in import strings for a TBC Anniversary Retribution Paladin. See
 [AURAS.md](AURAS.md) for what each one does and how to import.
 
-- `rexhail-rotation-ret.import.txt` (v3.2.1) — the main rotation helper, an
+- `rexhail-rotation-ret.import.txt` (v3.3.0) — the main rotation helper, an
   **adaptive Ret + Prot HUD**. One import that adapts to your spec, to what you know
   (not your level), and to PvP vs PvE. The press-now icon is bigger and **flashes
   gold the instant the GCD ends** (the heartbeat), with a shared GCD bar and swing
@@ -68,7 +68,8 @@ Drop-in import strings for a TBC Anniversary Retribution Paladin. See
   **seal-twist track** at ~70 (Seal of Command + Seal of Blood/Martyr); Protection
   gets its own threat priority. A status icon on the right shows your weapon (the
   **shield** when you're in 1H+shield) and flips to a red NOT-ATTACKING warning when
-  you should be swinging but aren't. Mana-aware, left-anchored row of up to 3 icons,
+  you should be swinging but aren't. Rotation icons (and the weapon icon) **turn red
+  when out of range** of your target. Mana-aware, left-anchored row of up to 3 icons,
   pre-ready sweep + sparkle. See [AURAS.md](AURAS.md) for macros.
   Published on wago: https://wago.io/f-ofmKAvL
 - `seal-tracker.import.txt` — a standalone seal tracker.

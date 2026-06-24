@@ -12,7 +12,7 @@ Everything imports as a single group you can drag around as one piece. The Ret
 and Prot groups each only load in their own spec (Ret checks for Crusader Strike,
 Prot checks for Holy Shield), so they stay out of each other's way when you swap.
 
-## rexhail-rotation-ret.import.txt  (adaptive Ret + Prot HUD)  — current (v3.2.1)
+## rexhail-rotation-ret.import.txt  (adaptive Ret + Prot HUD)  — current (v3.3.0)
 
 An adaptive rotation HUD. One import that auto-adapts to your spec, to what you
 **know** (not your level), and to PvP vs PvE — Ret and Prot, leveling to 70.
@@ -39,6 +39,11 @@ Blessing of Sanctuary, Devotion Aura, Holy Shield, Avenger's Shield, Consecratio
 **Status icon (right of the row):** shows your weapon — and in **1H+shield it shows
 the shield**, so a glance tells you you're in shield mode. When you should be swinging
 but aren't, it turns into a **red NOT-ATTACKING** warning in the same spot.
+
+**Range awareness (v3.3.0):** each rotation icon turns **red when its spell is out of
+range** of your target (Crusader Strike / Judgement / Hammer of Wrath / Exorcism —
+self-casts never go red). The weapon icon also turns red when you're out of melee range
+in combat (melee range is read from Crusader Strike, so it kicks in once you know it).
 
 **Carried over:** at most 3 icons, left-anchored; a ~2.5s pre-ready sweep with a
 sparkle the instant an ability comes up; a standalone seal indicator (grey + red when
