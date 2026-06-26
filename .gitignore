@@ -17,5 +17,7 @@ WTF/
 # Private project documentation (admin only)
 CLAUDE.md
 
-# WA iterations folder (testing versions)
-_iterations/
+# WA iterations folder (testing versions) — skrypty build/test sa tracked
+_iterations/*
+!_iterations/build_twist_queue.py
+!_iterations/test_queue_behavior.py
