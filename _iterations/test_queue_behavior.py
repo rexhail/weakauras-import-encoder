@@ -24,6 +24,7 @@ assert ok, "Deserializacja nie powiodla sie"
 # c[3] → slot 1 (queue[1]), c[5] → slot 2 (queue[2]), c[7] → slot 3 (queue[3])
 DISPLAY_SLOTS = [3, 5, 7]
 TSU = {i: str(tbl['c'][i]['triggers'][1]['trigger']['custom']) for i in DISPLAY_SLOTS}
+C22_TSU = str(tbl['c'][22]['triggers'][1]['trigger']['custom'])
 
 # ---------------------------------------------------------------------------
 BASE_STUBS = """
@@ -48,6 +49,8 @@ local _sn = {
   [19742]="Blessing of Wisdom",[19740]="Blessing of Might",
   [24274]="Hammer of Wrath",[879]="Exorcism",
   [31892]="Seal of Blood",[348700]="Seal of the Martyr",[31801]="Seal of Vengeance",
+  [20925]="Holy Shield",[25780]="Righteous Fury",[31935]="Avenger's Shield",
+  [20914]="Blessing of Sanctuary",[20166]="Seal of Righteousness",
 }
 GetSpellInfo = function(id)
   local n = type(id)=="string" and id or (_sn[id] or tostring(id))
@@ -67,6 +70,46 @@ GetSpellCooldown = function(n)
   return 0, 0
 end
 """
+
+def make_prot_spell_known():
+    """IsSpellKnown stubs for Prot spec: knows Holy Shield (20925), NOT Crusader Strike (35395)"""
+    return """
+IsSpellKnown = function(id)
+  return ({[20925]=true,[20271]=true,[26573]=true,[25780]=true,
+           [31935]=true,[24274]=true,[879]=true,[20914]=true,
+           [465]=true,[20166]=true})[id] or false
+end
+IsPlayerSpell = IsSpellKnown
+"""
+
+def run_prot_scenario(label, player_buffs=(), target_debuffs=(), spells_on_cd=()):
+    """Same as run_scenario but uses Prot IsSpellKnown stubs."""
+    slots = []
+    for c_idx in DISPLAY_SLOTS:
+        lua, _ = wa._lua()
+        g = lua.globals()
+        lua.execute(BASE_STUBS)
+        lua.execute(make_prot_spell_known())  # override IsSpellKnown for Prot
+        lua.execute(AURA_ENV)
+        lua.execute(make_unit_buff(player_buffs))
+        lua.execute(make_unit_debuff(target_debuffs))
+        for sp in spells_on_cd:
+            lua.execute(f'_cd["{sp}"]=true')
+        g._tsu = TSU[c_idx]
+        lua.execute("local fn=load('return '.._tsu)(); local s={}; fn(s); _s=s['']")
+        show = bool(lua.eval("_s and _s.show or false"))
+        if show:
+            slots.append({
+                'name': str(lua.eval("_s.name or ''")),
+                'grey': bool(lua.eval("_s.needseal or false")),
+            })
+    print(f"[{label}]")
+    for i, s in enumerate(slots, 1):
+        g_mark = " << SZARY" if s['grey'] else ""
+        print(f"  slot{i}: {s['name']}{g_mark}")
+    if not slots:
+        print("  (kolejka pusta)")
+    return slots
 
 AURA_ENV = """
 aura_env = {prev={}, readyAt={}, auras={
@@ -195,6 +238,67 @@ ok_check(
     bool(q) and "Judgement" in q[0]['name'],
     f"Opener: slot1 = Judge gdy SotC aktywny (got: {q[0]['name'] if q else 'brak'})"
 )
+
+# ---------------------------------------------------------------------------
+# Scenariusz 6: Prot — brak seala → Seal of Wisdom w slot 1
+# ---------------------------------------------------------------------------
+q = run_prot_scenario(
+    "6: Prot — brak seala -> Seal of Wisdom",
+    player_buffs=["Righteous Fury", "Retribution Aura"],
+    target_debuffs=[],
+)
+ok_check(
+    bool(q) and "Seal of Wisdom" in q[0]['name'],
+    f"Prot opener: slot1 = Seal of Wisdom gdy brak seala (got: {q[0]['name'] if q else 'brak'})"
+)
+
+# ---------------------------------------------------------------------------
+# Scenariusz 7: Prot — seal aktywny, Holy Shield gotowy → Holy Shield w slot 1
+# ---------------------------------------------------------------------------
+q = run_prot_scenario(
+    "7: Prot — Seal of Wisdom aktywny + Holy Shield ready",
+    player_buffs=["Seal of Wisdom", "Righteous Fury", "Retribution Aura"],
+    target_debuffs=[],
+)
+ok_check(
+    bool(q) and "Holy Shield" in q[0]['name'],
+    f"Prot: slot1 = Holy Shield gdy seal aktywny i HS ready (got: {q[0]['name'] if q else 'brak'})"
+)
+
+# ---------------------------------------------------------------------------
+# Scenariusz 8: Prot — Holy Shield na CD → Consecration w slocie 1
+# ---------------------------------------------------------------------------
+q = run_prot_scenario(
+    "8: Prot — Holy Shield na CD -> Consecration",
+    player_buffs=["Seal of Wisdom", "Righteous Fury", "Retribution Aura"],
+    target_debuffs=[],
+    spells_on_cd=["Holy Shield"],
+)
+ok_check(
+    bool(q) and "Consecration" in q[0]['name'],
+    f"Prot: slot1 = Consecration gdy HS na CD (got: {q[0]['name'] if q else 'brak'})"
+)
+
+# ---------------------------------------------------------------------------
+# Scenariusz 9: Prot — swing timer bar (c[22]) musi byc widoczny
+# ---------------------------------------------------------------------------
+def run_c22_prot():
+    lua, _ = wa._lua()
+    g = lua.globals()
+    lua.execute(BASE_STUBS)
+    lua.execute(make_prot_spell_known())
+    lua.execute(AURA_ENV)
+    lua.execute(make_unit_buff(["Seal of Wisdom", "Righteous Fury"]))
+    lua.execute(make_unit_debuff([]))
+    g._tsu = C22_TSU
+    lua.execute("local fn=load('return '.._tsu)(); local s={}; fn(s); _s=s['']")
+    show = bool(lua.eval("_s and _s.show or false"))
+    return show
+
+c22_show = run_c22_prot()
+print(f"[9: Prot — c[22] swing timer bar]")
+print(f"  show={c22_show}")
+ok_check(c22_show, "Prot: c[22] swing timer bar jest widoczny")
 
 # ---------------------------------------------------------------------------
 print(f"\n{'='*50}")
